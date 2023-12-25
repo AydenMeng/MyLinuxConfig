@@ -43,6 +43,8 @@ set t_vb=
 set tm=500
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
+" e ++ff=unix %           " 执行一次即可在vim中看到中文dos下的符号, 永久生效
+" e ++ff=dos %               " 默认认为文件是dos下字符
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -156,31 +158,57 @@ command! -nargs=1 -bar UnPlug call s:deregister(<args>)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 插件列表
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin('/home/mxd/.vim/plugged')
+call plug#begin('~/.vim/plugged')
 
+" Plug 'chxuan/cpp-mode'
+" Plug 'chxuan/vim-edit'
+" Plug 'chxuan/change-colorscheme'
+" Plug 'chxuan/prepare-code'
 Plug 'chxuan/vim-buffer'
+" Plug 'chxuan/vimplus-startify'
 Plug 'preservim/tagbar'
-" Plug 'Valloric/YouCompleteMe'   ", { 'on': [] }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'Valloric/YouCompleteMe', { 'on': [] }
 " augroup load_ycm
 "     autocmd!
 "     autocmd InsertEnter * call plug#load('YouCompleteMe') | autocmd! load_cmd
 " augroup END
 Plug 'Yggdroot/LeaderF'
+" Plug 'mileszs/ack.vim'
+" Plug 'easymotion/vim-easymotion'
+" Plug 'haya14busa/incsearch.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'godlygeek/tabular'
+" Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdcommenter'
+" Plug 'tpope/vim-repeat'
+" Plug 'tpope/vim-endwise'
 Plug 'octol/vim-cpp-enhanced-highlight'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'ryanoasis/vim-devicons'
+" Plug 'junegunn/vim-slash'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
-Plug 'iamcco/mathjax-support-for-mkdp'
-Plug 'iamcco/markdown-preview.vim'
+" Plug 'kana/vim-textobj-user'
+" Plug 'kana/vim-textobj-indent'
+" Plug 'kana/vim-textobj-syntax'
+" Plug 'kana/vim-textobj-function'
+" Plug 'sgur/vim-textobj-parameter'
+" Plug 'Shougo/echodoc.vim'
+" Plug 'terryma/vim-smooth-scroll'
+" Plug 'rhysd/clever-f.vim'
+" Plug 'vim-scripts/indentpython.vim'
+
 Plug 'ferrine/md-img-paste.vim'
-Plug 'yegappan/taglist'
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'godlygeek/tabular' "必要插件，安装在vim-markdown前面
+Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.vim'
 
 " 加载自定义插件
 if filereadable(expand($HOME . '/.vimrc.custom.plugins'))
@@ -225,6 +253,21 @@ nnoremap <leader><leader>p "+p
 
 " 打开文件自动定位到最后编辑的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+
+" coc
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 " 主题设置
 set background=dark
@@ -275,14 +318,14 @@ let g:airline_right_alt_sep = '❮'
 " xnoremap <leader><leader>t d :GenTryCatch<cr>
 
 " change-colorscheme
-nnoremap <silent> <F9> :PreviousColorScheme<cr>
-inoremap <silent> <F9> <esc> :PreviousColorScheme<cr>
-nnoremap <silent> <F10> :NextColorScheme<cr>
-inoremap <silent> <F10> <esc> :NextColorScheme<cr>
-nnoremap <silent> <F11> :RandomColorScheme<cr>
-inoremap <silent> <F11> <esc> :RandomColorScheme<cr>
-nnoremap <silent> <F12> :ShowColorScheme<cr>
-inoremap <silent> <F12> <esc> :ShowColorScheme<cr>
+" nnoremap <silent> <F9> :PreviousColorScheme<cr>
+" inoremap <silent> <F9> <esc> :PreviousColorScheme<cr>
+" nnoremap <silent> <F10> :NextColorScheme<cr>
+" inoremap <silent> <F10> <esc> :NextColorScheme<cr>
+" nnoremap <silent> <F11> :RandomColorScheme<cr>
+" inoremap <silent> <F11> <esc> :RandomColorScheme<cr>
+" nnoremap <silent> <F12> :ShowColorScheme<cr>
+" inoremap <silent> <F12> <esc> :ShowColorScheme<cr>
 
 " prepare-code
 " let g:prepare_code_plugin_path = expand($HOME . "/.vim/plugged/prepare-code")
@@ -441,8 +484,14 @@ imap <silent> <F8> <Plug>MarkdownPreview        " for insert mode
 nmap <silent> <F9> <Plug>StopMarkdownPreview    " for normal mode
 imap <silent> <F9> <Plug>StopMarkdownPreview    " for insert mode
 
+let g:mdip_imgdir = 'picture'
+let g:mdip_imgname = 'image'
+autocmd FileType markdown let g:PasteImageFunction = 'g:MarkdownPasteImage'
 autocmd FileType markdown nmap <buffer><silent> <F3> :call mdip#MarkdownClipboardImage()<CR>
+" autocmd FileType markdown nnoremap <silent> <C-i> :call mdip#MarkdownClipboardImage()<CR>
 
+let g:vim_markdown_math = 1
+let g:mkdp_markdown_css=''
 let g:mdip_imgdir = './img/'
 " let g:mdip_imgname = 'image'
 

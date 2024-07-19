@@ -1,0 +1,28 @@
+From 0137a2b11e95548679e8b51341c644a851ea7f4d Mon Sep 17 00:00:00 2001
+From: mengxiangdong <mengxiangdong@loongson.cn>
+Date: Fri, 19 Jul 2024 17:05:31 +0800
+Subject: [PATCH] ayden's configure
+
+---
+ .tmux.conf | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/.tmux.conf b/.tmux.conf
+index 0bb0ca7..3628e5b 100644
+--- a/.tmux.conf
++++ b/.tmux.conf
+@@ -19,8 +19,9 @@ set -s escape-time 10                     # faster command sequences
+ set -sg repeat-time 600                   # increase repeat timeout
+ set -s focus-events on
+ 
+-set -g prefix2 C-a                        # GNU-Screen compatible prefix
+-bind C-a send-prefix -2
++unbind C-b
++set -g prefix C-s                        # GNU-Screen compatible prefix
++bind C-s send-prefix -2
+ 
+ set -q -g status-utf8 on                  # expect UTF-8 (tmux < 2.2)
+ setw -q -g utf8 on
+-- 
+2.34.1
+

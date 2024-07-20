@@ -11,6 +11,8 @@ then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 
+PS1='${debian_chroot:+($debian_chroot)}\[\033[32;1m\]AydenMeng\[\033[0m\]@\[\033[35;1m\]\h\[\033[0m\]:\[\033[33;1m\]/path/to/\W\[\033[0m\]\$ '
+
 #export PATH=/home/mengxiangdong/tool_chain/nasm-2.14/bin:$PATH
 #export LD_LIBRARY_PATH=/home/mengxiangdong/tool_chain/gcc-4.4.0-pmon/lib:
 #export CROSS_COMPILE=mipsel-linux-
@@ -142,3 +144,5 @@ echo -e "\e[32m ╚═════╝ ╚═╝\e[0m"
 fi
 
 export CSCOPE_EDITOR=`which vim`
+
+source ~/.git-completion.sh

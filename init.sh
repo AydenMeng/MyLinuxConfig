@@ -51,3 +51,5 @@ function main() {
 	bash_config
 	vim_config
 }
+
+main

@@ -1,10 +1,13 @@
 #!/bin/bash
 
+aosc=$(which oma)
 archlinux=$(which pacman)
 debian=$(which dpkg)
 fedora=$(which dnf)
 
 if [ -n ${archlinux} ]; then
+	PKG="oma install --yes"
+elif [ -n ${archlinux} ]; then
 	PKG="pacman -S --noconfirm"
 elif [ -n ${debian} ]; then
 	PKG="apt install -y"
@@ -14,10 +17,11 @@ fi
 
 BASEPKG=(vim git nodejs terminator tmux net-tools gcc make autoconf)
 DEVPKG=(bison flex libssl-dev libelf-dev minicom)
+TOOLPKG=(flameshot)
 
-for p in ${BASEPKG[@]}; do
-	${PKG} $p
-done
+#for p in ${BASEPKG[@]}; do
+#	${PKG} $p
+#done
 
 
 # for p in ${DEVPKG[@]}; do
@@ -37,6 +41,10 @@ function tmux_config() {
 	cp .tmux/.tmux.conf.local .
 }
 
+function bash_config() {
+	cp ~/MyLinuxConfig/config ~/.config/terminator/config
+}
+
 function vim_config() {
 	cp ~/MyLinuxConfig/.vimrc ~/.vimrc
 }
@@ -46,9 +54,9 @@ function bash_config() {
 }
 
 function main() {
-	preinit
+	#preinit
 	tmux_config
-	bash_config
+	#bash_config
 	vim_config
 }
 

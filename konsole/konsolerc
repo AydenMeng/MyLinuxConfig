@@ -1,0 +1,30 @@
+[Desktop Entry]
+DefaultProfile=AOSC OS.profile
+
+[General]
+ConfigVersion=1
+
+[KFileDialog Settings]
+detailViewIconSize=16
+
+[KonsoleWindow]
+RememberWindowSize=false
+
+[MainWindow]
+1920x1080 screen: Height=556
+1920x1080 screen: Width=911
+1920x1080 screen: Window-Maximized=true
+1920x1080 screen: XPosition=699
+1920x1080 screen: YPosition=347
+HDMI-0=HDMI-0
+HDMI-A-0=HDMI-A-0
+MenuBar=Enabled
+State=AAAA/wAAAAD9AAAAAQAAAAAAAAFyAAADqvwCAAAAAvsAAAAcAFMAUwBIAE0AYQBuAGEAZwBlAHIARABvAGMAawAAAABOAAADqgAAARkBAAAD+wAAACIAUQB1AGkAYwBrAEMAbwBtAG0AYQBuAGQAcwBEAG8AYwBrAAAAAE4AAAOqAAABfgEAAAMAAAeAAAADqgAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAACAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIAAAAAAP////8AAAAAAAAAAAAAABwAcwBlAHMAcwBpAG8AbgBUAG8AbwBsAGIAYQByAQAAAAD/////AAAAAAAAAAA=
+ToolBarsMovable=Disabled
+VGA-0=VGA-0
+
+[Notification Messages]
+ShowPasteHugeTextWarning=false
+
+[UiSettings]
+ColorScheme=
